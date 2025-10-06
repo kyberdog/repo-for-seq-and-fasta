@@ -115,8 +115,8 @@ if __name__ == "__main__":
     if not reader.isfasta():
         print("Файл не в формате FASTA или не найден")
     else:
-        for record in reader.records():
-            print(record)
-            print(f"Length: {len(record)}")
-            print(f"Alphabet: {record.alphabet()}")
+        for i in reader.records():
+            print(f"Length: {len(i)}")
+            print(f"Alphabet: {i.alphabet()}")
             print("-" * 40)
+
