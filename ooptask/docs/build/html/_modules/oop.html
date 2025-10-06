@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oop &#8212; seq and fasta 2025 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=12dfc556" />
+    <script src="../_static/documentation_options.js?v=cb975c41"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for oop</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="Seq">
+<a class="viewcode-back" href="../oop.html#oop.Seq">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">Seq</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Класс для представления биологической последовательности с заголовком.</span>
+
+<span class="sd">    Атрибуты:</span>
+<span class="sd">        header (str): Заголовок последовательности (обычно описание).</span>
+<span class="sd">        sequence (str): Последовательность нуклеотидов или аминокислот в верхнем регистре.</span>
+
+<span class="sd">    Методы:</span>
+<span class="sd">        __str__(): Возвращает строковое представление в формате FASTA.</span>
+<span class="sd">        __len__(): Возвращает длину последовательности.</span>
+<span class="sd">        alphabet(): Определяет тип последовательности (&quot;nucleotide&quot;, &quot;protein&quot;, &quot;likely nucleotide&quot;, </span>
+<span class="sd">                    &quot;likely protein&quot; или &quot;unknown&quot;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&gt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Seq.alphabet">
+<a class="viewcode-back" href="../oop.html#oop.Seq.alphabet">[docs]</a>
+    <span class="k">def</span> <span class="nf">alphabet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Определяет тип алфавита последовательности.</span>
+
+<span class="sd">        Возвращает:</span>
+<span class="sd">            str: Один из вариантов:</span>
+<span class="sd">                - &quot;nucleotide&quot; — если последовательность полностью из A, C, G, T, U.</span>
+<span class="sd">                - &quot;protein&quot; — если последовательность содержит только стандартные аминокислоты.</span>
+<span class="sd">                - &quot;likely nucleotide&quot; — большинство символов нуклеотиды, но есть исключения.</span>
+<span class="sd">                - &quot;likely protein&quot; — большинство символов аминокислоты, но есть исключения.</span>
+<span class="sd">                - &quot;unknown&quot; — смешанный или неизвестный алфавит.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nucleotides</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;ACGTU&quot;</span><span class="p">)</span>
+        <span class="n">proteins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;ACDEFGHIKLMNPQRSTVWY&quot;</span><span class="p">)</span>  <span class="c1"># стандартные однобуквенные коды аминокислот</span>
+        <span class="n">seqset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">seqset</span> <span class="o">&lt;=</span> <span class="n">nucleotides</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;nucleotide&quot;</span>
+        <span class="k">elif</span> <span class="n">seqset</span> <span class="o">&lt;=</span> <span class="n">proteins</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;protein&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nuccount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">nucleotides</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
+            <span class="n">protcount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="ow">in</span> <span class="n">proteins</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nuccount</span> <span class="o">&gt;</span> <span class="n">protcount</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;likely nucleotide&quot;</span>
+            <span class="k">elif</span> <span class="n">protcount</span> <span class="o">&gt;</span> <span class="n">nuccount</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;likely protein&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;unknown&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FastaReader">
+<a class="viewcode-back" href="../oop.html#oop.FastaReader">[docs]</a>
+<span class="k">class</span> <span class="nc">FastaReader</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Класс для чтения FASTA-файлов и извлечения последовательностей.</span>
+
+<span class="sd">    Атрибуты:</span>
+<span class="sd">        filepath (str): Путь к FASTA-файлу.</span>
+
+<span class="sd">    Методы:</span>
+<span class="sd">        isfasta(): Проверяет, является ли файл FASTA по признаку первого символа &#39;&gt;&#39;.</span>
+<span class="sd">        records(): Генератор, возвращающий объекты Seq по одной записи из файла.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span> <span class="o">=</span> <span class="n">filepath</span>
+
+<div class="viewcode-block" id="FastaReader.isfasta">
+<a class="viewcode-back" href="../oop.html#oop.FastaReader.isfasta">[docs]</a>
+    <span class="k">def</span> <span class="nf">isfasta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Проверяет, начинается ли файл с символа &#39;&gt;&#39;, характерного для FASTA.</span>
+
+<span class="sd">        Возвращает:</span>
+<span class="sd">            bool: True, если файл существует и начинается с &#39;&gt;&#39;; иначе False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">firstchar</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">firstchar</span> <span class="o">==</span> <span class="s2">&quot;&gt;&quot;</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FastaReader.records">
+<a class="viewcode-back" href="../oop.html#oop.FastaReader.records">[docs]</a>
+    <span class="k">def</span> <span class="nf">records</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Читает файл и возвращает по одной записи последовательности в виде объекта Seq.</span>
+
+<span class="sd">        Возвращает:</span>
+<span class="sd">            generator: Итератор объектов Seq для каждой записи FASTA.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">seqlines</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">yield</span> <span class="n">Seq</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seqlines</span><span class="p">))</span>
+                    <span class="n">header</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+                    <span class="n">seqlines</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">seqlines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">Seq</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seqlines</span><span class="p">))</span></div>
+</div>
+
+
+
+<span class="c1"># Demonstration</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">fastapath</span> <span class="o">=</span> <span class="s2">&quot;example.fasta&quot;</span>  <span class="c1"># Path to FASTA file</span>
+
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">FastaReader</span><span class="p">(</span><span class="n">fastapath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">reader</span><span class="o">.</span><span class="n">isfasta</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Файл не в формате FASTA или не найден&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">reader</span><span class="o">.</span><span class="n">records</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Alphabet: </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">alphabet</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">seq and fasta</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">ooptask</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Anna Zubrilina.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

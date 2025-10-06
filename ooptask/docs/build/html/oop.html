@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>oop module &#8212; seq and fasta 2025 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=cb975c41"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ooptask" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-oop">
+<span id="oop-module"></span><h1>oop module<a class="headerlink" href="#module-oop" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="oop.FastaReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oop.</span></span><span class="sig-name descname"><span class="pre">FastaReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oop.html#FastaReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oop.FastaReader" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Класс для чтения FASTA-файлов и извлечения последовательностей.</p>
+<dl class="simple">
+<dt>Атрибуты:</dt><dd><p>filepath (str): Путь к FASTA-файлу.</p>
+</dd>
+<dt>Методы:</dt><dd><p>isfasta(): Проверяет, является ли файл FASTA по признаку первого символа ‘&gt;’.
+records(): Генератор, возвращающий объекты Seq по одной записи из файла.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="oop.FastaReader.isfasta">
+<span class="sig-name descname"><span class="pre">isfasta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oop.html#FastaReader.isfasta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oop.FastaReader.isfasta" title="Link to this definition">¶</a></dt>
+<dd><p>Проверяет, начинается ли файл с символа ‘&gt;’, характерного для FASTA.</p>
+<dl class="simple">
+<dt>Возвращает:</dt><dd><p>bool: True, если файл существует и начинается с ‘&gt;’; иначе False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oop.FastaReader.records">
+<span class="sig-name descname"><span class="pre">records</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oop.html#FastaReader.records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oop.FastaReader.records" title="Link to this definition">¶</a></dt>
+<dd><p>Читает файл и возвращает по одной записи последовательности в виде объекта Seq.</p>
+<dl class="simple">
+<dt>Возвращает:</dt><dd><p>generator: Итератор объектов Seq для каждой записи FASTA.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oop.Seq">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oop.</span></span><span class="sig-name descname"><span class="pre">Seq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">header</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oop.html#Seq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oop.Seq" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Класс для представления биологической последовательности с заголовком.</p>
+<dl>
+<dt>Атрибуты:</dt><dd><p>header (str): Заголовок последовательности (обычно описание).
+sequence (str): Последовательность нуклеотидов или аминокислот в верхнем регистре.</p>
+</dd>
+<dt>Методы:</dt><dd><p>__str__(): Возвращает строковое представление в формате FASTA.
+__len__(): Возвращает длину последовательности.
+alphabet(): Определяет тип последовательности (“nucleotide”, “protein”, “likely nucleotide”,</p>
+<blockquote>
+<div><p>“likely protein” или “unknown”).</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="oop.Seq.alphabet">
+<span class="sig-name descname"><span class="pre">alphabet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oop.html#Seq.alphabet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oop.Seq.alphabet" title="Link to this definition">¶</a></dt>
+<dd><p>Определяет тип алфавита последовательности.</p>
+<dl class="simple">
+<dt>Возвращает:</dt><dd><dl class="simple">
+<dt>str: Один из вариантов:</dt><dd><ul class="simple">
+<li><p>“nucleotide” — если последовательность полностью из A, C, G, T, U.</p></li>
+<li><p>“protein” — если последовательность содержит только стандартные аминокислоты.</p></li>
+<li><p>“likely nucleotide” — большинство символов нуклеотиды, но есть исключения.</p></li>
+<li><p>“likely protein” — большинство символов аминокислоты, но есть исключения.</p></li>
+<li><p>“unknown” — смешанный или неизвестный алфавит.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">seq and fasta</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ooptask</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">oop module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">ooptask</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">ooptask</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Anna Zubrilina.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/oop.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
